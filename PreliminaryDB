@@ -1,0 +1,17 @@
+Items
+	-- Item Id {PK}
+	-- Quantity: int
+	-- Name: string
+	-- Unity: int
+	-- Added date: Date
+	-- Expiration Date: Date
+	-- Price: double
+	-- Image Id: int {FK}
+
+Cross Reference					
+	-- Item Name: string {PK}
+	-- Image ID: int {FK}
+
+Icon					
+	-- Image ID: int		
+	-- Image Path: string	
