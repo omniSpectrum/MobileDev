@@ -1,4 +1,9 @@
-package com.example.fridgeassistant;
+package omniSpectrum.fridgeassistant.UI;
+
+import omniSpectrum.fridgeassistant.Logic.DatabaseHelper;
+import omniSpectrum.fridgeassistant.Logic.Image;
+
+import com.example.fridgeassistant.R;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;

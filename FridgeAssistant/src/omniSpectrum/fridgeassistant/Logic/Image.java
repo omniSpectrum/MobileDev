@@ -1,4 +1,4 @@
-package com.example.fridgeassistant;
+package omniSpectrum.fridgeassistant.Logic;
 
 //TODO change field path from string to byte[]
 public class Image {

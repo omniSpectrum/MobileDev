@@ -1,4 +1,4 @@
-package com.example.fridgeassistant;
+package omniSpectrum.fridgeassistant.Logic;
 
 public class GroceryItem {
 	

@@ -1,4 +1,4 @@
-package com.example.fridgeassistant;
+package omniSpectrum.fridgeassistant.Logic;
 
 import java.util.ArrayList;
 import java.util.List;
