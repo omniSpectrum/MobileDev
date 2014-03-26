@@ -1,7 +1,17 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:id="@+id/InventoryListActivityLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
     tools:context="omniSpectrum.fridgeassistant.UI.MainActivity"
-    tools:ignore="MergeRootFrame" />
+>
+
+    <ListView
+		android:id="@+id/inventoryListView"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		
+	</ListView>
+    
+</LinearLayout>
