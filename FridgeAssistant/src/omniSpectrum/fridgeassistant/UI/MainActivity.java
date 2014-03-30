@@ -1,7 +1,7 @@
 package omniSpectrum.fridgeassistant.UI;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 
 import omniSpectrum.fridgeassistant.Logic.Category;
 import omniSpectrum.fridgeassistant.Logic.DatabaseHelper;
@@ -22,6 +22,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
@@ -112,10 +114,12 @@ public class MainActivity extends ActionBarActivity {
 				(ListView) findViewById(R.id.inventoryListView);
 		
 		// Create Adapter
+		// TODO Custom adapter
 		ArrayAdapter<ItemDefinition> adapter = 
 				new ArrayAdapter<ItemDefinition>(this,
 		        android.R.layout.simple_expandable_list_item_1, 
 		        myDummyList);
+		
 		
 		// Assign Adapter to listView
 		inventoryListView.setAdapter(adapter);
