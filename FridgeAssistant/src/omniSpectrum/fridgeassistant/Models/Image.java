@@ -1,4 +1,4 @@
-package omniSpectrum.fridgeassistant.Logic;
+package omniSpectrum.fridgeassistant.Models;
 
 //TODO change field path from string to byte[]
 public class Image {

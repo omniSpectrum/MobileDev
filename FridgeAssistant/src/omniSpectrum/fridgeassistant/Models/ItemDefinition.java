@@ -1,15 +1,14 @@
-package omniSpectrum.fridgeassistant.Logic;
+package omniSpectrum.fridgeassistant.Models;
 
 public class ItemDefinition {
 	
 	int id;
 	Category itemCategory;
 	String name;
+	int balance;
 	
 	public ItemDefinition(){}
 	
-	
-
 	public ItemDefinition(Category itemCategory, String name) {
 		this.itemCategory = itemCategory;
 		this.name = name;
@@ -20,6 +19,11 @@ public class ItemDefinition {
 		this.id = itemId;
 		this.itemCategory = itemCategory;
 		this.name = name;
+	}
+	
+	public ItemDefinition(int itemId, Category itemCategory, String name, int balance){
+		this(itemId, itemCategory, name);
+		this.balance = balance;
 	}
 
 	public int getItemId() {
@@ -46,8 +50,13 @@ public class ItemDefinition {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-	
 
+	public int getBalance() {
+		return balance;
+	}
+
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+	
 }

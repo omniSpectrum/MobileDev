@@ -5,5 +5,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="etAdd">Add</string>
+    <string name="inventory">Inventory</string>
+    <string name="inventoryimage">inventoryImage</string>
+    <string name="dummy_text">Dummy text</string>
 
 </resources>

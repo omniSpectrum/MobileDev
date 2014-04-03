@@ -1,4 +1,4 @@
-package omniSpectrum.fridgeassistant.Logic;
+package omniSpectrum.fridgeassistant.Models;
 
 public class GroceryItem {
 	

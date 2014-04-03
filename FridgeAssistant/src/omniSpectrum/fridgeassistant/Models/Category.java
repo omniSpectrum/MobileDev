@@ -1,7 +1,7 @@
 /**
  * Category Model
  */
-package omniSpectrum.fridgeassistant.Logic;
+package omniSpectrum.fridgeassistant.Models;
 
 /**
  * @author danfreitas

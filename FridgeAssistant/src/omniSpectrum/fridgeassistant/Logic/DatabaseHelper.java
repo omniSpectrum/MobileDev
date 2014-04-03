@@ -3,6 +3,8 @@ package omniSpectrum.fridgeassistant.Logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import omniSpectrum.fridgeassistant.Models.Image;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

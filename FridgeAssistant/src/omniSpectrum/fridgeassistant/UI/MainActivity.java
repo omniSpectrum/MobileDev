@@ -3,12 +3,13 @@ package omniSpectrum.fridgeassistant.UI;
 import java.util.ArrayList;
 import java.util.Random;
 
-import omniSpectrum.fridgeassistant.Logic.Category;
 import omniSpectrum.fridgeassistant.Logic.DatabaseHelper;
-import omniSpectrum.fridgeassistant.Logic.Image;
-import omniSpectrum.fridgeassistant.Logic.ItemDefinition;
+import omniSpectrum.fridgeassistant.Logic.InventoryArrayAdapter;
+import omniSpectrum.fridgeassistant.Models.Category;
+import omniSpectrum.fridgeassistant.Models.Image;
+import omniSpectrum.fridgeassistant.Models.ItemDefinition;
 
-import com.example.fridgeassistant.R;
+import omniSpectrum.fridgeassistant.R;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -35,7 +36,7 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		playWithDataBase();
+		//playWithDataBase();
 		
 		populateInventoryListView();
 	}
@@ -95,19 +96,21 @@ public class MainActivity extends ActionBarActivity {
 		// TODO GET ALL LIST FROM DB Here
 		
 		// Dummy data TODO delete dummy data later
-		ArrayList<ItemDefinition> myDummyList = new ArrayList<ItemDefinition>();
-		myDummyList.add(
-				new ItemDefinition(
+		Random myDummyAmount = new Random();
+		ItemDefinition[] myDummyList = {
+				new ItemDefinition(1,
 						new Category("Drinks", 
-								new Image("herePathToImg")), "Milk"));
-		myDummyList.add(
-				new ItemDefinition(
+								new Image("herePathToImg")), 
+									"Milk", myDummyAmount.nextInt(20)),
+				new ItemDefinition(2,
 						new Category("Drinks", 
-								new Image("herePathToImg")), "Cola"));
-		myDummyList.add(
-				new ItemDefinition(
+								new Image("herePathToImg")), "" +
+									"Cola", myDummyAmount.nextInt(20)),
+				new ItemDefinition(3,
 						new Category("Drinks", 
-								new Image("herePathToImg")), "Beer"));
+								new Image("herePathToImg")), 
+									"Beer", myDummyAmount.nextInt(20))
+		};
 		
 		// Find list view layout
 		ListView inventoryListView = 
@@ -115,11 +118,8 @@ public class MainActivity extends ActionBarActivity {
 		
 		// Create Adapter
 		// TODO Custom adapter
-		ArrayAdapter<ItemDefinition> adapter = 
-				new ArrayAdapter<ItemDefinition>(this,
-		        android.R.layout.simple_expandable_list_item_1, 
-		        myDummyList);
-		
+		InventoryArrayAdapter adapter = 
+				new InventoryArrayAdapter(this, myDummyList);
 		
 		// Assign Adapter to listView
 		inventoryListView.setAdapter(adapter);
