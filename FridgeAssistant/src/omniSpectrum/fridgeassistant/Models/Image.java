@@ -6,8 +6,6 @@ public class Image {
 	String path;
 	
 	public Image(){}
-	
-	
 
 	public Image(String path) {
 		this.path = path;
@@ -33,6 +31,4 @@ public class Image {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	
-	
 }

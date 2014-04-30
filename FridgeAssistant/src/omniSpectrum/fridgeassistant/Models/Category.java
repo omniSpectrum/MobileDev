@@ -12,9 +12,7 @@ public class Category {
 	String name;
 	Image imgId;
 	
-	public Category(){
-		
-	}
+	public Category(){}
 	
 	public Category(String name)
 	{
@@ -24,6 +22,11 @@ public class Category {
 	public Category(String name, Image imgId){
 		this.name = name;
 		this.imgId = imgId;
+	}
+	public Category(int id, String name, Image img){
+		this.id = id;
+		this.name = name;
+		this.imgId = img;
 	}
 
 	public int getId() {
