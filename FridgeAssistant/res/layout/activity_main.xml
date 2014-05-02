@@ -4,14 +4,28 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    tools:context="omniSpectrum.fridgeassistant.UI.MainActivity" >
-	
-    <TextView
+    tools:context="omniSpectrum.fridgeassistant.UI.MainActivity"
+     >
+
+    <LinearLayout
+        android:id="@string/activitymainheaderwrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f08080" >
+        
+        <TextView
         android:id="@+id/activityMainHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/inventory" />
-    
+        android:text="@string/inventory"
+        android:layout_marginTop="10dip"
+        android:layout_marginBottom="10dip"
+        android:layout_marginLeft="15dip"
+        android:textSize="20sp"
+        android:textStyle="bold"
+         />
+    </LinearLayout>
+	
     <ListView
         android:id="@+id/inventoryListView"
         android:layout_width="match_parent"

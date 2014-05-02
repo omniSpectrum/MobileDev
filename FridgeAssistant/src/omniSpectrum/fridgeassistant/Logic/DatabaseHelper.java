@@ -97,6 +97,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(CREATE_TABLE_ITEMSDEFINITIONS);
 		db.execSQL(CREATE_TABLE_GROCERYITEMS);
 		db.execSQL(CREATE_TABLE_INVENTORYTRANSACTIONS);
+		
+		populateTestData(db);
 	}
 
 	@Override
@@ -112,9 +114,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	// Image handle
-	public long createImage(Image image){
-		SQLiteDatabase db = this.getWritableDatabase();
-		
+	private long createImage(Image image, SQLiteDatabase db){		
 		ContentValues values = new ContentValues();
 		values.put(KEY_PATH, image.getPath());
 		
@@ -122,6 +122,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		
 		return image_id;
 	}	
+	public long createImage(Image image){
+		return createImage(image, this.getWritableDatabase());
+	}
 	public List<Image> getAllImages(){
 		List<Image> images = new ArrayList<Image>();
 		String selectQuery = "SELECT * FROM " + TABLE_IMAGE;
@@ -165,9 +168,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 	
 	//Category handle
-	public long createCategory(Category cat){
-		SQLiteDatabase db = this.getWritableDatabase();
-		
+	private long createCategory(Category cat, SQLiteDatabase db){	
 		ContentValues values = new ContentValues();
 		values.put(KEY_NAME, cat.getName());
 		values.put(FK_CATEGORY_IMAGEID, cat.getImgId().getId());
@@ -175,6 +176,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		long cat_id = db.insert(TABLE_CATEGORY, null, values);
 		
 		return cat_id;
+	}
+	public long createCategory(Category cat){
+		return createCategory(cat, this.getWritableDatabase());
 	}
 	public List<Category> getAllCategories(){
 		List<Category> categories = new ArrayList<Category>();
@@ -205,29 +209,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	}
 
 	//ItemDefinitions handle
-	public long createItemDefinition(ItemDefinition item){
-		SQLiteDatabase db = this.getWritableDatabase();
-		
+	private long createItemDefinition(ItemDefinition item, SQLiteDatabase db){
 		ContentValues values = new ContentValues();
-		values.put(KEY_NAME, item.getItemId());
+		values.put(KEY_NAME, item.getName());
 		values.put(KEY_BALANCE, item.getBalance());
-		values.put(FK_CATEGORYID, item.getItemCategory().getName());
+		values.put(FK_CATEGORYID, item.getItemCategory().getId());
 		
-		long cat_id = db.insert(TABLE_CATEGORY, null, values);
+		long cat_id = db.insert(TABLE_ITEMDEFINITION, null, values);
 		
 		return cat_id;
+	}
+	public long ccreateItemDefinition(ItemDefinition item){
+		return createItemDefinition(item, this.getWritableDatabase());
 	}
 	public List<ItemDefinition> getAllItemDefenitions(){		
 		List<ItemDefinition> items = new ArrayList<ItemDefinition>();
 		String selectQuery = "SELECT IT."+KEY_ID+", IT."+KEY_NAME + ","
+						+ " IT." + KEY_BALANCE + ","
 						+ " C."+KEY_ID+", C."+KEY_NAME + ","
 						+ " IM."+KEY_ID+", IM."+KEY_PATH
-						+ " FROM " + TABLE_ITEMDEFINITION
-						+ " JOIN " + TABLE_CATEGORY + " C ON"
+						+ " FROM " + TABLE_ITEMDEFINITION + " IT"
+						+ " INNER JOIN " + TABLE_CATEGORY + " C ON"
 						+ " IT." + FK_CATEGORYID + " = " + "C." + KEY_ID
-						+ " JOIN " + TABLE_IMAGE + " IM ON"
+						+ " INNER JOIN " + TABLE_IMAGE + " IM ON"
 						+ " C." + FK_CATEGORY_IMAGEID + " = " + "IM." + KEY_ID;		
-//		String selectQuery = "SELECT * FROM " + TABLE_ITEMDEFINITION;
+
 		Log.e(log, selectQuery);
 		
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -237,24 +243,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			do {
 				ItemDefinition i = new ItemDefinition();
 				
-				i.setItemId(c.getInt(c.getColumnIndex("IT."+KEY_ID)));
-				i.setName(c.getString(c.getColumnIndex("IT."+KEY_NAME)));
-				i.setBalance(c.getInt(c.getColumnIndex("IT."+KEY_BALANCE)));
+				i.setItemId(c.getInt(0));
+				i.setName(c.getString(1));
+				i.setBalance(c.getInt(2));
 				
 				i.setItemCategory(new Category(
-							c.getInt(c.getColumnIndex("C."+KEY_ID)),
-							c.getString(c.getColumnIndex("C."+KEY_NAME)),
+							c.getInt(3),
+							c.getString(4),
 							new Image(
-									c.getInt(c.getColumnIndex("IM."+KEY_ID)),
-									c.getString(c.getColumnIndex("IM."+KEY_PATH))
+									c.getInt(5),
+									c.getString(6)
 								)
 						));
-				
-//				i.setItemId(c.getInt(c.getColumnIndex(KEY_ID)));
-//				i.setName(c.getString(c.getColumnIndex(KEY_NAME)));
-//				i.setBalance(c.getInt(c.getColumnIndex(KEY_BALANCE)));
-				
-				Log.e(log, i.toString());
+
 				items.add(i);
 			} while (c.moveToNext());
 		}
@@ -262,13 +263,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return items;
 	}
 	
-	public void populateTestData(){
+	public void populateTestData(SQLiteDatabase db){
 		
-		Image img1 = new Image("ic_launcher.png");
-		img1.setId((int) createImage(img1));
+		Image img1 = new Image("catfridge.png");
+		img1.setId((int) createImage(img1, db));
 		
 		Category cat1 = new Category("Drinks", img1);
-		cat1.setId((int) createCategory(cat1));
+		cat1.setId((int) createCategory(cat1, db));
 		
 		Random myDummyAmount = new Random();
 		ItemDefinition it1 = new ItemDefinition(cat1, "Milk");
@@ -278,9 +279,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		ItemDefinition it3 = new ItemDefinition(cat1, "Beer");
 		it3.setBalance(myDummyAmount.nextInt(20));
 		
-		createItemDefinition(it1);
-		createItemDefinition(it2);
-		createItemDefinition(it3);
+		createItemDefinition(it1, db);
+		createItemDefinition(it2, db);
+		createItemDefinition(it3, db);
 	}
 	
 	public void closeDb(){

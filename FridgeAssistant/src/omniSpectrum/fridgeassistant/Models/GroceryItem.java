@@ -4,16 +4,14 @@ public class GroceryItem {
 	
 	int id;
 	ItemDefinition myItem;
-	String name;
+	int quantityToBuy;
 	
-	public GroceryItem(){
-		
-	}
+	public GroceryItem(){}
 
-	public GroceryItem(int id, ItemDefinition myItem, String name) {
+	public GroceryItem(int id, ItemDefinition myItem, int quantityToBuy) {
 		this.id = id;
 		this.myItem = myItem;
-		this.name = name;
+		this.quantityToBuy = quantityToBuy;
 	}
 
 	public int getId() {
@@ -32,12 +30,12 @@ public class GroceryItem {
 		this.myItem = myItem;
 	}
 
-	public String getName() {
-		return name;
+	public int getQuantityToBuy() {
+		return quantityToBuy;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setQuantityToBuy(int quantityToBuy) {
+		this.quantityToBuy = quantityToBuy;
 	}
 	
 	

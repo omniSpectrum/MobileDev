@@ -41,9 +41,11 @@ public class InventoryArrayAdapter extends ArrayAdapter<ItemDefinition>{
 	    
 	    //Assign values
 	    firstLineView.setText(itemsArray[position].getName());
-	    Integer itemBalance = itemsArray[position].getBalance();
-	    secondLineView.setText(itemBalance.toString());
-	    imageView.setImageResource(R.drawable.ic_launcher);
+	    secondLineView.setText(String.valueOf(itemsArray[position].getBalance()));
+	    int imageRid = context.getResources()
+	    				.getIdentifier(itemsArray[position].getItemCategory().getImgId().getPath(), 
+	    				"drawable", context.getPackageName());
+	    imageView.setImageResource(imageRid);
 
 	    return rowView;
 	  }	
