@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:orientation="vertical" >
+
+    <NumberPicker
+        android:id="@+id/numberPickerBalance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        tools:targetApi="honeycomb" />
+
+    <View
+	    android:layout_width="fill_parent"
+	    android:layout_height="1dp"
+	    android:background="@android:color/darker_gray"
+	    android:layout_marginTop="20dp" />
+     <Button
+         android:id="@+id/btDone"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+
+         android:text="@string/done" />
+
+</LinearLayout>

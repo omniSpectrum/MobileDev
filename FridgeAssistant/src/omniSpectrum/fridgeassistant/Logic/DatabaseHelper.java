@@ -263,6 +263,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		return items;
 	}
 	
+	public void updateBalance(ItemDefinition myItem) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		
+		ContentValues values = new ContentValues();
+		values.put(KEY_BALANCE, myItem.getBalance());
+		
+		db.update(TABLE_ITEMDEFINITION, values, 
+				KEY_ID + "= " + String.valueOf(myItem.getItemId()), null);
+	}
+	
 	public void populateTestData(SQLiteDatabase db){
 		
 		Image img1 = new Image("catfridge.png");

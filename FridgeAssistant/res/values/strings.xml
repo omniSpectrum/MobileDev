@@ -8,5 +8,6 @@
     <string name="inventoryimage">inventoryImage</string>
     <string name="dummy_text">Dummy text</string>
     <string name="activitymainheaderwrapper">activityMainHeaderWrapper</string>
+    <string name="done">Done</string>
 
 </resources>
