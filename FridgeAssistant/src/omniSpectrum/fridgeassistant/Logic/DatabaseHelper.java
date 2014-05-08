@@ -2,7 +2,6 @@ package omniSpectrum.fridgeassistant.Logic;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import omniSpectrum.fridgeassistant.Models.Category;
 import omniSpectrum.fridgeassistant.Models.Image;
@@ -275,23 +274,49 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	public void populateTestData(SQLiteDatabase db){
 		
-		Image img1 = new Image("catfridge.png");
-		img1.setId((int) createImage(img1, db));
+		// ADD Default images
+		Image imgDrink = new Image("drinks");		
+		Image imgFruits = new Image("fruits");
+		Image imgMeats = new Image("meats");
+		Image imgPastry = new Image("pastry");
+		Image imgVege = new Image("vegetables");
 		
-		Category cat1 = new Category("Drinks", img1);
+		imgDrink.setId((int) createImage(imgDrink, db));
+		imgFruits.setId((int) createImage(imgFruits, db));
+		imgMeats.setId((int) createImage(imgMeats, db));
+		imgPastry.setId((int) createImage(imgPastry, db));
+		imgVege.setId((int) createImage(imgVege, db));
+		
+		//Add Default Categories
+		Category cat1 = new Category("Drinks", imgDrink);
+		Category cat2 = new Category("Fruits", imgFruits);
+		Category cat3 = new Category("Meats", imgMeats);
+		Category cat4 = new Category("Pastry", imgPastry);
+		Category cat5 = new Category("Vegetables", imgVege);
+		
 		cat1.setId((int) createCategory(cat1, db));
+		cat2.setId((int) createCategory(cat2, db));
+		cat3.setId((int) createCategory(cat3, db));
+		cat4.setId((int) createCategory(cat4, db));
+		cat5.setId((int) createCategory(cat5, db));
 		
-		Random myDummyAmount = new Random();
+		//Add defult Items
 		ItemDefinition it1 = new ItemDefinition(cat1, "Milk");
-		it1.setBalance(myDummyAmount.nextInt(20));
-		ItemDefinition it2 = new ItemDefinition(cat1, "Cola");
-		it2.setBalance(myDummyAmount.nextInt(20));
-		ItemDefinition it3 = new ItemDefinition(cat1, "Beer");
-		it3.setBalance(myDummyAmount.nextInt(20));
+		it1.setBalance(0);
+		ItemDefinition it2 = new ItemDefinition(cat2, "Banana");
+		it2.setBalance(0);
+		ItemDefinition it3 = new ItemDefinition(cat3, "Sausages");
+		it3.setBalance(0);
+		ItemDefinition it4 = new ItemDefinition(cat4, "Bread");
+		it3.setBalance(0);
+		ItemDefinition it5 = new ItemDefinition(cat5, "Tomatos");
+		it3.setBalance(0);
 		
 		createItemDefinition(it1, db);
 		createItemDefinition(it2, db);
 		createItemDefinition(it3, db);
+		createItemDefinition(it4, db);
+		createItemDefinition(it5, db);
 	}
 	
 	public void closeDb(){

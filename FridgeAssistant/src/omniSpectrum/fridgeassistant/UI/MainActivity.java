@@ -32,6 +32,7 @@ public class MainActivity extends ActionBarActivity
 	ListView inventoryListView;
 	ItemDefinition[] inventoryList;
 	static Dialog d;
+	String[] menuItems = {"Edit", "Delete", "Cancel"};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -86,18 +87,10 @@ public class MainActivity extends ActionBarActivity
 			public void onItemClick(AdapterView<?> parent, View view,
 			    int position, long id) {
 				
-				//Alert
-			    Toast.makeText(getApplicationContext(),
-			      "Click ListItem Number " + position, Toast.LENGTH_LONG).show();
-			    
 			    // Num Picker Balance dialog call
 			    showNumPickerDialog(position);
 			}
 		}); 
-		
-		// TODO List Item Long Click Event
-		//Context menu
-		//view.showContextMenu();
 	}
 	
 	// Number picker interface method
@@ -128,7 +121,9 @@ public class MainActivity extends ActionBarActivity
 		  @Override
 		  public void onClick(View v) {
 			  Toast.makeText(getApplicationContext(),
-					"onClick " + String.valueOf(np.getValue()), Toast.LENGTH_LONG).show();	
+					  "Balance: " + myItem.getName() 
+							  + " updated to " + String.valueOf(np.getValue()), 
+							  Toast.LENGTH_LONG).show();	
 			  
 			  //Update balance
 			  myItem.setBalance(np.getValue());
@@ -152,14 +147,48 @@ public class MainActivity extends ActionBarActivity
 	  
 		if (v.getId()==R.id.inventoryListView) {
 		    
-			AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-			
+			AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;			
 			menu.setHeaderTitle(inventoryList[info.position].getName());
 		    
-		    String[] menuItems = {"Edit", "Delete", "Cancel"};
 		    for (int i = 0; i<menuItems.length; i++) {
 		      menu.add(Menu.NONE, i, i, menuItems[i]);
 		    }
 		}
+	}
+	
+	//Context Menu Edit/Delete Actions
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+	  AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+	  int menuItemIndex = item.getItemId();
+	  String menuItemName = menuItems[menuItemIndex];
+	  ItemDefinition listItem = inventoryList[info.position];
+
+	  Toast.makeText(getApplicationContext(),
+			  "Action:  " + menuItemName + " - " + listItem.getName(), Toast.LENGTH_LONG).show();
+	  
+	  if (menuItemName.equals("Edit")) {
+		  createEditInventory(listItem);
+	  }
+	  else if (menuItemName.equals("Delete")) {
+		  deleteInventoryItem(listItem);
+	  }
+	  
+	  return true;
+	}
+	
+	private void deleteInventoryItem(ItemDefinition item){
+		
+		//Confirmation dialog
+		final Dialog d = new Dialog(MainActivity.this);
+		d.setTitle("Delete " + item.getName() + "?");
+		
+		
+		d.show();
+		
+		// TODO delte from DB, update listView
+	}
+	private void createEditInventory(ItemDefinition item){
+		// TODO Intent to createEdit Activity
 	}
 }
