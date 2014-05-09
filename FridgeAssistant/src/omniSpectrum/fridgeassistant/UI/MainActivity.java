@@ -7,7 +7,10 @@ import omniSpectrum.fridgeassistant.Logic.DatabaseHelper;
 import omniSpectrum.fridgeassistant.Logic.InventoryArrayAdapter;
 import omniSpectrum.fridgeassistant.Models.ItemDefinition;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -41,7 +44,7 @@ public class MainActivity extends ActionBarActivity
 		
 		inventoryListView = (ListView) findViewById(R.id.inventoryListView);
 		db = new DatabaseHelper(this);
-		
+		db.onUpgrade(db.getWritableDatabase(), 1, 1); //TODO delete THIS Line before release
 		populateInventoryListView();
 		//Register Context Menu
 		registerForContextMenu(inventoryListView);
@@ -49,7 +52,6 @@ public class MainActivity extends ActionBarActivity
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
@@ -62,6 +64,7 @@ public class MainActivity extends ActionBarActivity
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_add) {
+			createEditInventory(new ItemDefinition());
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -163,9 +166,6 @@ public class MainActivity extends ActionBarActivity
 	  int menuItemIndex = item.getItemId();
 	  String menuItemName = menuItems[menuItemIndex];
 	  ItemDefinition listItem = inventoryList[info.position];
-
-	  Toast.makeText(getApplicationContext(),
-			  "Action:  " + menuItemName + " - " + listItem.getName(), Toast.LENGTH_LONG).show();
 	  
 	  if (menuItemName.equals("Edit")) {
 		  createEditInventory(listItem);
@@ -177,18 +177,43 @@ public class MainActivity extends ActionBarActivity
 	  return true;
 	}
 	
-	private void deleteInventoryItem(ItemDefinition item){
+	private void deleteInventoryItem(final ItemDefinition item){
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Delete " + item.getName() + "?");
+		builder.setCancelable(true);
+		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+		    @Override
+		    public void onClick(DialogInterface dialog, int id) {
+		    	
+		    	//delete from DB, update listView
+		    	db.deleteItemDefinition(item.getItemId());
+		    	
+		    	Toast.makeText(getApplicationContext(),
+		  			  "Deleted:  " + item.getName(), Toast.LENGTH_LONG).show();
+		    	
+		        dialog.dismiss(); // hide	
+		        
+		        // Update item in ListView
+			    populateInventoryListView(); 
+			    // TODO Later, edit single listView item instead of fetching DB
+		    }
+		});
+		builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int id) {
+                // Hide Dialog, Do nothing
+				dialog.dismiss();
+            }
+		});
+		AlertDialog dialog = builder.create();
 		
-		//Confirmation dialog
-		final Dialog d = new Dialog(MainActivity.this);
-		d.setTitle("Delete " + item.getName() + "?");
-		
-		
-		d.show();
-		
-		// TODO delte from DB, update listView
+		dialog.show();
 	}
 	private void createEditInventory(ItemDefinition item){
-		// TODO Intent to createEdit Activity
+		
+		// Intent to createEdit Activity
+		Intent tx = new Intent(MainActivity.this, InventoryCreateEdit.class);
+		tx.putExtra("itemId", item.getItemId());
+	    startActivity(tx);
 	}
 }

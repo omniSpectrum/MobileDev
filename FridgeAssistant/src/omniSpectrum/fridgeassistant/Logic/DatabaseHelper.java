@@ -271,6 +271,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.update(TABLE_ITEMDEFINITION, values, 
 				KEY_ID + "= " + String.valueOf(myItem.getItemId()), null);
 	}
+	public void deleteItemDefinition(int id){
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(TABLE_ITEMDEFINITION, KEY_ID + "=" + id, null);
+	}
 	
 	public void populateTestData(SQLiteDatabase db){
 		
