@@ -1,9 +1,14 @@
 package omniSpectrum.fridgeassistant.UI;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import omniSpectrum.fridgeassistant.R;
 import omniSpectrum.fridgeassistant.R.id;
 import omniSpectrum.fridgeassistant.R.layout;
 import omniSpectrum.fridgeassistant.R.menu;
+import omniSpectrum.fridgeassistant.Logic.DatabaseHelper;
+import omniSpectrum.fridgeassistant.Models.Category;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -13,19 +18,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.os.Build;
 
 public class InventoryCreateEdit extends ActionBarActivity {
-
+	
+	DatabaseHelper db;
+	Spinner spinner;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_inventory_create_edit);
-
+		db = new DatabaseHelper(this);
+		spinner = (Spinner)findViewById(R.id.spCategory);
+		loadspinner();
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+	}
+
+	private void loadspinner() {
+		List<Category> categories = db.getAllCategories();
+		
+		ArrayAdapter<Category> dataAdapter = new ArrayAdapter<Category>(this, 
+				android.R.layout.simple_spinner_item, categories);
+		
+		spinner.setAdapter(dataAdapter);
+		
 	}
 
 	@Override

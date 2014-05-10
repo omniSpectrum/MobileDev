@@ -52,4 +52,9 @@ public class Category {
 	public void setImgId(Image imgId) {
 		this.imgId = imgId;
 	}
+	
+	@Override
+	public String toString() {
+		return this.getName();
+	}
 }

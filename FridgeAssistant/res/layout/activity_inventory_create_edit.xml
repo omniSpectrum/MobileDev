@@ -4,5 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="omniSpectrum.fridgeassistant.UI.InventoryCreateEdit"
-    tools:ignore="MergeRootFrame" />
+    tools:ignore="MergeRootFrame" >
+
+    <fragment
+        android:id="@+id/fragment1"
+        android:name="omniSpectrum.fridgeassistant.UI.fragmentInventoryCreateEdit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>
 
