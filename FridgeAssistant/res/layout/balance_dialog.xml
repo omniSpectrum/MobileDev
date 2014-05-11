@@ -11,18 +11,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         tools:targetApi="honeycomb" />
-
-    <View
-	    android:layout_width="fill_parent"
-	    android:layout_height="1dp"
-	    android:background="@android:color/darker_gray"
-	    android:layout_marginTop="20dp" />
-     <Button
-         android:id="@+id/btDone"
-         android:layout_width="fill_parent"
-         android:layout_height="wrap_content"
-         android:text="@string/done" />
-
 </LinearLayout>

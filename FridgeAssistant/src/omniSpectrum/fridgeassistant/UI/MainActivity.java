@@ -8,7 +8,6 @@ import omniSpectrum.fridgeassistant.Logic.InventoryArrayAdapter;
 import omniSpectrum.fridgeassistant.Models.ItemDefinition;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -19,22 +18,19 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.NumberPicker;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class MainActivity extends ActionBarActivity 
-	implements NumberPicker.OnValueChangeListener {
+public class MainActivity extends ActionBarActivity {
 	
 	DatabaseHelper db;	
 	ListView inventoryListView;
 	ItemDefinition[] inventoryList;
-	static Dialog d;
 	String[] menuItems = {"Edit", "Delete", "Cancel"};
 
 	@Override
@@ -96,51 +92,50 @@ public class MainActivity extends ActionBarActivity
 		}); 
 	}
 	
-	// Number picker interface method
-	@Override
-    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-		// Initially LEFT EMPTY
-    }
-	
 	// NumberPicker Dialog
 	public void showNumPickerDialog(int position){
-
-         final Dialog d = new Dialog(MainActivity.this);
-         final ItemDefinition myItem = inventoryList[position];
-         
-         d.setTitle("Balance: " + myItem.getName());
-         d.setContentView(R.layout.balance_dialog);
-         
-         Button b1 = (Button) d.findViewById(R.id.btDone);
-         final NumberPicker np = (NumberPicker) d.findViewById(R.id.numberPickerBalance);
-         
-         np.setMaxValue(100);
-         np.setMinValue(0);
-         np.setValue(myItem.getBalance());
-         np.setWrapSelectorWheel(false);
-         np.setOnValueChangedListener(this);
-         
-         b1.setOnClickListener(new OnClickListener(){
-		  @Override
-		  public void onClick(View v) {
-			  Toast.makeText(getApplicationContext(),
-					  "Balance: " + myItem.getName() 
-							  + " updated to " + String.valueOf(np.getValue()), 
-							  Toast.LENGTH_LONG).show();	
-			  
-			  //Update balance
-			  myItem.setBalance(np.getValue());
-			  db.updateBalance(myItem);
-			  
-		      d.dismiss();
-		      
-		      // Update item in ListView
-		      populateInventoryListView(); 
-		      // TODO Later, edit single listView item instead of fetching DB
-		   }    
-		  });
-         
-         d.show();
+		
+		//Create dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final ItemDefinition myItem = inventoryList[position];
+        
+        //Set Up Dialog
+		builder.setTitle("Balance: " + myItem.getName());
+		builder.setCancelable(true);
+		View myView = (LinearLayout) getLayoutInflater().inflate(R.layout.balance_dialog, null);			
+		builder.setView(myView);
+	
+		//Set Up Number Picker
+		final NumberPicker np = (NumberPicker) myView.findViewById(R.id.numberPickerBalance);
+  
+		np.setMaxValue(100);
+		np.setMinValue(0);
+		np.setValue(myItem.getBalance());
+		np.setWrapSelectorWheel(false);
+		
+		//Button Click dialog event
+		builder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+		    @Override
+		    public void onClick(DialogInterface dialog, int id) {
+		    	
+				  Toast.makeText(getApplicationContext(),
+				  "Balance: " + myItem.getName() 
+						  + " updated to " + String.valueOf(np.getValue()), 
+						  Toast.LENGTH_LONG).show();	
+		  
+				  //Update balance
+				  myItem.setBalance(np.getValue());
+				  db.updateBalance(myItem);
+		    	
+				  dialog.dismiss(); // hide	
+		        
+				  // Update item in ListView
+				  populateInventoryListView(); 
+		    }
+		});
+		AlertDialog dialog = builder.create();
+		
+		dialog.show();
     }
 	
 	// Context Menu builder
@@ -196,7 +191,6 @@ public class MainActivity extends ActionBarActivity
 		        
 		        // Update item in ListView
 			    populateInventoryListView(); 
-			    // TODO Later, edit single listView item instead of fetching DB
 		    }
 		});
 		builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener(){
