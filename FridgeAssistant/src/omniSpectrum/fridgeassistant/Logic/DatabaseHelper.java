@@ -218,7 +218,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		
 		return cat_id;
 	}
-	public long ccreateItemDefinition(ItemDefinition item){
+	public long createItemDefinition(ItemDefinition item){
 		return createItemDefinition(item, this.getWritableDatabase());
 	}
 	public List<ItemDefinition> getAllItemDefenitions(){		
@@ -274,6 +274,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void deleteItemDefinition(int id){
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(TABLE_ITEMDEFINITION, KEY_ID + "=" + id, null);
+	}
+	public void updateItemDefinition(ItemDefinition myItem){
+		SQLiteDatabase db = this.getWritableDatabase();
+		
+		ContentValues values = new ContentValues();
+		values.put(FK_CATEGORYID, myItem.getItemCategory().getId());
+		values.put(KEY_NAME, myItem.getName());
+		values.put(KEY_BALANCE, myItem.getBalance());
+		
+		db.update(TABLE_ITEMDEFINITION, values, 
+				KEY_ID + "= " + String.valueOf(myItem.getItemId()), null);
 	}
 	
 	public void populateTestData(SQLiteDatabase db){
