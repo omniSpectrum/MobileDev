@@ -17,37 +17,40 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 import android.os.Build;
 
 public class InventoryCreateEdit extends ActionBarActivity {
 	
 	DatabaseHelper db;
 	Spinner spinner;
+	Button button;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_inventory_create_edit);
+		
+		//Calling database
 		db = new DatabaseHelper(this);
+		
+		//Finding elements in the fragment
 		spinner = (Spinner)findViewById(R.id.spCategory);
+		
+		//Populate spinner with data from DB
 		loadspinner();
+		
+	
+		
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
-	}
-
-	private void loadspinner() {
-		List<Category> categories = db.getAllCategories();
-		
-		ArrayAdapter<Category> dataAdapter = new ArrayAdapter<Category>(this, 
-				android.R.layout.simple_spinner_item, categories);
-		
-		spinner.setAdapter(dataAdapter);
-		
 	}
 
 	@Override
@@ -68,6 +71,23 @@ public class InventoryCreateEdit extends ActionBarActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	//Method to populate Spinner
+	private void loadspinner() {
+		List<Category> categories = db.getAllCategories();
+		
+		ArrayAdapter<Category> dataAdapter = new ArrayAdapter<Category>(this, 
+				android.R.layout.simple_spinner_item, categories);
+		
+		spinner.setAdapter(dataAdapter);
+		
+	}
+	
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		Toast.makeText(InventoryCreateEdit.this, "Hello", Toast.LENGTH_SHORT).show();
+		
 	}
 
 	/**
