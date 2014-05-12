@@ -11,13 +11,6 @@ License: GNU GENERAL PUBLIC LICENSE
 Haaga-Helia University of applied sciences, Mobile development course.
 
 #Task List
-	-- App Icon(Different Dimentions)
-	-- Grocery Icon Set(Different Dimensions(?))
-
-	-- ContentProvider
-	-- Create Initial Project #DONE
-	-- Create Models
-	-- Basic List layout 
-	-- Database stuff
-	-- App Behaviour
+	-- Item Create/Edit Activity
+	-- Settings
 	-- Statistics(?)
