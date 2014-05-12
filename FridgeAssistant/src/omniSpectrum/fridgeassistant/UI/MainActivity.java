@@ -46,6 +46,12 @@ public class MainActivity extends ActionBarActivity {
 		registerForContextMenu(inventoryListView);
 	}
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        populateInventoryListView();
+    }
+    
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -203,12 +209,6 @@ public class MainActivity extends ActionBarActivity {
 		
 		dialog.show();
 	}
-	
-    @Override
-    protected void onResume() {
-        super.onResume();
-        populateInventoryListView();
-    }
 	
 	private void createEditInventory(ItemDefinition item){
 		
