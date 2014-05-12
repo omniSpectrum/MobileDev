@@ -9,6 +9,7 @@ import omniSpectrum.fridgeassistant.R.layout;
 import omniSpectrum.fridgeassistant.R.menu;
 import omniSpectrum.fridgeassistant.Logic.DatabaseHelper;
 import omniSpectrum.fridgeassistant.Models.Category;
+import omniSpectrum.fridgeassistant.Models.ItemDefinition;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.os.Build;
@@ -30,6 +32,7 @@ public class InventoryCreateEdit extends ActionBarActivity {
 	DatabaseHelper db;
 	Spinner spinner;
 	Button button;
+	EditText etName;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +44,18 @@ public class InventoryCreateEdit extends ActionBarActivity {
 		
 		//Finding elements in the fragment
 		spinner = (Spinner)findViewById(R.id.spCategory);
+        etName = (EditText)findViewById(id.etName);
+
 		
 		//Populate spinner with data from DB
 		loadspinner();
 		
 	
-		
-		if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
+//		
+//		if (savedInstanceState == null) {
+//			getSupportFragmentManager().beginTransaction()
+//					.add(R.id.container, new PlaceholderFragment()).commit();
+//		}
 	}
 
 	@Override
@@ -87,24 +92,37 @@ public class InventoryCreateEdit extends ActionBarActivity {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		Toast.makeText(InventoryCreateEdit.this, "Hello", Toast.LENGTH_SHORT).show();
-		
+        String name = etName.getText().toString();
+        Category category = (Category) spinner.getSelectedItem();
+
+        ItemDefinition newItem = new ItemDefinition(category,name);
+
+        if (newItem != null)
+        {
+            Toast.makeText(this, "New item is not null", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, category.toString(), Toast.LENGTH_SHORT).show();
+            long dbItemDefinition = db.createItemDefinition(newItem);
+            finish();
+
+            //Toast.makeText(this, (int) dbItemDefinition, Toast.LENGTH_SHORT);
+        }
 	}
 
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(
-					R.layout.fragment_inventory_create_edit, container, false);
-			return rootView;
-		}
-	}
+//	/**
+//	 * A placeholder fragment containing a simple view.
+//	 */
+//	public static class PlaceholderFragment extends Fragment {
+//
+//		public PlaceholderFragment() {
+//		}
+//
+//		@Override
+//		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//				Bundle savedInstanceState) {
+//			View rootView = inflater.inflate(
+//					R.layout.fragment_inventory_create_edit, container, false);
+//			return rootView;
+//		}
+//	}
 
 }

@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
@@ -6,11 +6,46 @@
     tools:context="omniSpectrum.fridgeassistant.UI.InventoryCreateEdit"
     tools:ignore="MergeRootFrame" >
 
-    <fragment
-        android:id="@+id/fragment1"
-        android:name="omniSpectrum.fridgeassistant.UI.fragmentInventoryCreateEdit"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etName"
+        android:layout_marginTop="77dp"
+        android:layout_alignParentTop="true"
+        android:inputType="text"
+        android:text="@string/item_name"
+        android:layout_toRightOf="@+id/tvName"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="0dp" />
 
-</FrameLayout>
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spCategory"
+        android:layout_below="@+id/etName"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/tvname"
+        android:id="@+id/tvName"
+        android:layout_alignTop="@+id/etName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:id="@+id/btSave"
+        android:onClick="onClick"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="24dp" />
+</RelativeLayout>
 

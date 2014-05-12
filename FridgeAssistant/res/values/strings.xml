@@ -14,5 +14,7 @@
     <string name="name">Name</string>
     <string name="quantity">Quantity</string>
     <string name="save">Save</string>
+    <string name="tvname">Item Name</string>
+    <string name="item_name">Item Name</string>
 
 </resources>

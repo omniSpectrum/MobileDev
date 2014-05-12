@@ -203,6 +203,13 @@ public class MainActivity extends ActionBarActivity {
 		
 		dialog.show();
 	}
+	
+    @Override
+    protected void onResume() {
+        super.onResume();
+        populateInventoryListView();
+    }
+	
 	private void createEditInventory(ItemDefinition item){
 		
 		// Intent to createEdit Activity
