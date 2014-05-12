@@ -31,4 +31,24 @@ public class Image {
 	public void setPath(String path) {
 		this.path = path;
 	}
+	
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Image image = (Image) o;
+
+        if (id != image.id) return false;
+        if (!path.equals(image.path)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + path.hashCode();
+        return result;
+    }
 }

@@ -57,4 +57,26 @@ public class Category {
 	public String toString() {
 		return this.getName();
 	}
+	
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Category category = (Category) o;
+
+        if (id != category.id) return false;
+        if (!imgId.equals(category.imgId)) return false;
+        if (!name.equals(category.name)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + name.hashCode();
+        result = 31 * result + imgId.hashCode();
+        return result;
+    }
 }

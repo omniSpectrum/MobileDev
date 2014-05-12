@@ -33,23 +33,35 @@ public class InventoryCreateEdit extends ActionBarActivity {
 	Spinner spinner;
 	Button button;
 	EditText etName;
+	int id;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_inventory_create_edit);
 		
+		//Retrieving Id from main activity
+        Bundle extras = getIntent().getExtras();
+
 		//Calling database
 		db = new DatabaseHelper(this);
-		
-		//Finding elements in the fragment
-		spinner = (Spinner)findViewById(R.id.spCategory);
-        etName = (EditText)findViewById(id.etName);
 
-		
-		//Populate spinner with data from DB
-		loadspinner();
-		
+        //Finding elements in the fragment
+		spinner = (Spinner)findViewById(R.id.spCategory);
+        etName = (EditText)findViewById(R.id.etName);
+
+        //Populate spinner with data from DB
+        loadspinner();
+
+        if(extras != null){
+            id = extras.getInt("itemId");
+            ItemDefinition myItem = db.getSingleItem(id);
+            Category myCategory = myItem.getItemCategory();
+            etName.setText(myItem.getName());
+            Toast.makeText(this, myItem.getItemCategory().toString(), Toast.LENGTH_SHORT).show();
+            spinner.setSelection(getIndex(spinner, myCategory));
+
+        }
 	
 //		
 //		if (savedInstanceState == null) {
@@ -107,6 +119,18 @@ public class InventoryCreateEdit extends ActionBarActivity {
             //Toast.makeText(this, (int) dbItemDefinition, Toast.LENGTH_SHORT);
         }
 	}
+	
+    private int getIndex(Spinner spinner, Category myCategory){
+
+        int index = 0;
+
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).equals(myCategory)){
+                index = i;
+            }
+        }
+        return index;
+    }
 
 //	/**
 //	 * A placeholder fragment containing a simple view.

@@ -261,6 +261,43 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		c.close();
 		return items;
 	}
+    public ItemDefinition getSingleItem(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ItemDefinition itemToBeFetched = new ItemDefinition();
+
+        String query = "SELECT IT."+KEY_ID+", IT."+KEY_NAME + ","
+                + " IT." + KEY_BALANCE + ","
+                + " C."+KEY_ID+", C."+KEY_NAME + ","
+                + " IM."+KEY_ID+", IM."+KEY_PATH
+                + " FROM " + TABLE_ITEMDEFINITION + " IT"
+                + " INNER JOIN " + TABLE_CATEGORY + " C ON"
+                + " IT." + FK_CATEGORYID + " = " + "C." + KEY_ID
+                + " INNER JOIN " + TABLE_IMAGE + " IM ON"
+                + " C." + FK_CATEGORY_IMAGEID + " = " + "IM." + KEY_ID
+                + " WHERE IT." + KEY_ID + " = " + Integer.toString(id);
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor == null) {
+            return null;
+        }
+        cursor.moveToFirst();
+        itemToBeFetched.setItemId(cursor.getInt(0));
+        itemToBeFetched.setName(cursor.getString(1));
+        itemToBeFetched.setBalance(cursor.getInt(2));
+        itemToBeFetched.setItemCategory(new Category(
+                cursor.getInt(3),
+                cursor.getString(4),
+                new Image(
+                        cursor.getInt(5),
+                        cursor.getString(6)
+                )
+        ));
+
+        cursor.close();
+
+        return itemToBeFetched;
+    }
 	
 	public void updateBalance(ItemDefinition myItem) {
 		SQLiteDatabase db = this.getWritableDatabase();
