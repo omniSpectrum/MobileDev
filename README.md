@@ -3,8 +3,9 @@
 Android application to keep track of products in a fridge and
 to assist with grocery shopping. Haaga-Helia University of applied sciences, Mobile development course.
 
-<img alt="List" src="https://raw.githubusercontent.com/omniSpectrum/MobileDev/master/screens/FridgeListScreen.png" />
-<img alt="List" src="https://raw.githubusercontent.com/omniSpectrum/MobileDev/master/screens/FridgeBalanceScreen.png" />
+<img alt="List" src="https://raw.githubusercontent.com/omniSpectrum/MobileDev/master/screens/FridgeListScreen.png" width="200" />
+<span>              </span>
+<img alt="List" src="https://raw.githubusercontent.com/omniSpectrum/MobileDev/master/screens/FridgeBalanceScreen.png" width="200" />
 
 <h4>About:</h4> 
 Fridge Assistant is cool and simple application
