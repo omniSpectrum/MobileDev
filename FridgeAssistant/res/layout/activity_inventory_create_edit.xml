@@ -1,51 +1,40 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+    android:id="@+id/InventoryEditorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="omniSpectrum.fridgeassistant.UI.InventoryCreateEdit"
-    tools:ignore="MergeRootFrame" >
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/etName"
-        android:layout_marginTop="77dp"
-        android:layout_alignParentTop="true"
-        android:inputType="text"
-        android:text="@string/item_name"
-        android:layout_toRightOf="@+id/tvName"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginLeft="0dp" />
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spCategory"
-        android:layout_below="@+id/etName"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/tvname"
-        android:id="@+id/tvName"
-        android:layout_alignTop="@+id/etName"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save"
-        android:id="@+id/btSave"
-        android:onClick="onClick"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="24dp" />
-</RelativeLayout>
+    android:descendantFocusability="beforeDescendants"
+	android:focusableInTouchMode="true"
+	android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+     >
+        
+        <Spinner
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/spCategory"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginTop="10dp"
+	        android:layout_marginRight="10dp" />
+        
+        <EditText
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:id="@+id/etName"
+	        android:inputType="text"
+	        android:hint="@string/item_name"
+	        android:textSize="20sp"
+	        android:layout_margin="10dp" />
+        
+        <Button
+            android:id="@+id/btSave"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginRight="24dp"
+            android:onClick="onClick"
+            android:text="@string/save" />
+</LinearLayout>
 

@@ -40,7 +40,6 @@ public class MainActivity extends ActionBarActivity {
 		
 		inventoryListView = (ListView) findViewById(R.id.inventoryListView);
 		db = new DatabaseHelper(this);
-		db.onUpgrade(db.getWritableDatabase(), 1, 1); //TODO delete THIS Line before release
 		populateInventoryListView();
 		//Register Context Menu
 		registerForContextMenu(inventoryListView);

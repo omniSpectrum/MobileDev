@@ -4,6 +4,7 @@ import java.util.List;
 
 import omniSpectrum.fridgeassistant.Models.ItemDefinition;
 import omniSpectrum.fridgeassistant.R;
+import omniSpectrum.fridgeassistant.Logic.CategorySpinnerAdapter;
 import omniSpectrum.fridgeassistant.Logic.DatabaseHelper;
 import omniSpectrum.fridgeassistant.Models.Category;
 import android.support.v7.app.ActionBarActivity;
@@ -11,7 +12,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -24,7 +24,7 @@ public class InventoryCreateEdit extends ActionBarActivity {
 	Spinner spinner;
     EditText etName;
 	Button button;
-    ArrayAdapter<Category> dataAdapter;
+    CategorySpinnerAdapter dataAdapter;
 	int id;
 
 	@Override
@@ -78,11 +78,10 @@ public class InventoryCreateEdit extends ActionBarActivity {
 
 	//Method to populate Spinner
 	private void loadspinner() {
-		List<Category> categories = db.getAllCategories();
+		List<Category> catList = db.getAllCategories();
+		Category[] categories = catList.toArray(new Category[catList.size()]);
 		
-
-        dataAdapter = new ArrayAdapter<Category>(this,
-                android.R.layout.simple_spinner_item, categories);
+        dataAdapter = new CategorySpinnerAdapter(this, categories);
 
         spinner.setAdapter(dataAdapter);
 		
