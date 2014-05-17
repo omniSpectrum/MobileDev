@@ -19,7 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	private static final String log = "DatabaseHelper";
 	
 	//Database Version
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	
 	//Database name
 	private static final String DATABASE_NAME = "fridgeAssistantDB";
@@ -327,12 +327,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void populateTestData(SQLiteDatabase db){
 		
 		// ADD Default images
+        Image imgMisc = new Image("misc");
 		Image imgDrink = new Image("drinks");		
 		Image imgFruits = new Image("fruits");
 		Image imgMeats = new Image("meats");
 		Image imgPastry = new Image("pastry");
 		Image imgVege = new Image("vegetables");
 		
+        imgMisc.setId((int) createImage(imgMisc, db));
 		imgDrink.setId((int) createImage(imgDrink, db));
 		imgFruits.setId((int) createImage(imgFruits, db));
 		imgMeats.setId((int) createImage(imgMeats, db));
@@ -345,12 +347,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		Category cat3 = new Category("Meats", imgMeats);
 		Category cat4 = new Category("Pastry", imgPastry);
 		Category cat5 = new Category("Vegetables", imgVege);
+		Category cat6 = new Category("Misc", imgMisc);
 		
 		cat1.setId((int) createCategory(cat1, db));
 		cat2.setId((int) createCategory(cat2, db));
 		cat3.setId((int) createCategory(cat3, db));
 		cat4.setId((int) createCategory(cat4, db));
 		cat5.setId((int) createCategory(cat5, db));
+		cat6.setId((int) createCategory(cat6, db));
 		
 		//Add defult Items
 		ItemDefinition it1 = new ItemDefinition(cat1, "Milk");
